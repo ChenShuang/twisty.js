@@ -29,7 +29,7 @@ function startTimer() {
   startRefreshTimerLoop();
 }
 function isTiming() {
-  return startTime != null && stopTime == null;
+  return startTime !== null && stopTime === null;
 }
 function stopTimer() {
   assert(startTime);
@@ -51,11 +51,11 @@ function refreshTimer() {
   if(isTiming()) {
     timer.addClass("running");
     timer.text(prettyTime(new Date().getTime()));
-  } else if(startTime == null) {
-    assert(stopTime == null);
+  } else if(startTime === null) {
+    assert(stopTime === null);
     timer.addClass("reset");
     timer.text("[Timer]");
-  } else if(stopTime != null) {
+  } else if(stopTime !== null) {
     assert(startTime);
     timer.addClass("stopped");
     timer.text(prettyTime(stopTime));
@@ -64,19 +64,19 @@ function refreshTimer() {
 
 var pendingTimerRefresh = null;
 function startRefreshTimerLoop() {
-  if(pendingTimerRefresh == null) {
+  if(pendingTimerRefresh === null) {
     pendingTimerRefresh = requestAnimFrame(refreshTimerLoop, $('#timer')[0]);
   }
 }
 function stopRefreshTimerLoop() {
-  if(pendingTimerRefresh != null) {
+  if(pendingTimerRefresh !== null) {
     cancelRequestAnimFrame(pendingTimerRefresh);
     pendingTimerRefresh = null;
   }
 }
 function refreshTimerLoop() {
   refreshTimer();
-  if(pendingTimerRefresh != null) {
+  if(pendingTimerRefresh !== null) {
     pendingTimerRefresh = requestAnimFrame(refreshTimerLoop, $('#timer')[0]);
   }
 }
